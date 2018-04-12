@@ -16,12 +16,6 @@ npm install
 ```
 
 ---
-Install bower dependencies
-```
-npx bower install
-```
-
----
 Start development mode HTTP server
 ```
 npm start

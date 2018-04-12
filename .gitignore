@@ -1,6 +1,3 @@
-# Distribution directory
-dist/
-
 # Error log files
 npm-error.log*
 yarn-error.log*
@@ -37,6 +34,9 @@ yarn.lock
 # System files
 Thumbs.db
 .DS_Store
+
+# Distributed directory
+dist/
 
 # Other
 sh.exe.stackdump
