@@ -11,17 +11,20 @@ const
 	sourcemaps = require('gulp-sourcemaps'),
 	browserSync = require('browser-sync').create(),
 	gutil = require('gulp-util'),
+	plumber = require('gulp-plumber'),
 	exec = require('child_process').exec,
 	preprocess = require('gulp-preprocess');
 
 gulp.task('html', function() {
 	return gulp.src('./src/*.pug')
+		.pipe(plumber())
 		.pipe(pug())
 		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest('./dist/'));
 });
 gulp.task('css', function() {
 	return gulp.src('./src/css/*.less')
+		.pipe(plumber())
 		.pipe(sourcemaps.init())
 		.pipe(less())
 		.pipe(sourcemaps.write())
@@ -31,6 +34,7 @@ gulp.task('css', function() {
 });
 gulp.task('js', function() {
 	return gulp.src('./src/js/*.coffee')
+		.pipe(plumber())
 		.pipe(coffee())
 		.pipe(preprocess({
 			context: {

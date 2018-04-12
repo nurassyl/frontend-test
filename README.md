@@ -12,7 +12,8 @@ npm install -g npx npm yarn
 ---
 Install dependencies
 ```
-npm install
+npm install &&\
+npx bower install
 ```
 
 ---
