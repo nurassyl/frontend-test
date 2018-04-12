@@ -6,7 +6,7 @@ bash
 ---
 Install global packages
 ```
-npm install -g npm yarn npx
+sudo npm install -g npx npm yarn
 ```
 
 ---
@@ -19,4 +19,16 @@ npm install
 Start development mode HTTP server
 ```
 npm start
+```
+
+---
+Build
+```
+npm run build
+```
+
+---
+Run HTTP server of production mode
+```
+npm run server
 ```

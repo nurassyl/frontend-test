@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "frontend-test",
   "version": "1.0.0",
   "private": true,
   "description": "",
@@ -9,16 +9,15 @@
     "clear-dist": "rm -rf ./dist",
     "clear-all": "rm -f *.log* && rm -f package-lock.json && rm -f yarn.lock && rm -rf node_modules && npm run clear-dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run clear-dist && npx bower install && ENV=development NODE_ENV=$ENV BABEL_ENV=$ENV npx gulp --env=development",
-    "build": "npm run clear-dist && npx bower install && ENV=production NODE_ENV=$ENV BABEL_ENV=$ENV npx gulp --env=production"
+    "start": "npm run clear-dist && npx bower install && npx gulp --env=development",
+    "build": "npm run clear-dist && npx bower install && npx gulp --env=production",
+    "server": "node server.js"
   },
   "engines": {
-    "node": "^8.11"
+    "node": "^8"
   },
   "os": [
     "linux",
-    "freebsd",
-    "openbsd",
     "win32"
   ],
   "cpu": [
@@ -27,6 +26,7 @@
   "devDependencies": {
     "bower": "^1.8.4",
     "browser-sync": "^2.23.6",
+    "express": "^4.16.3",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-cli": "^2.0.1",

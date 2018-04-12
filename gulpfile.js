@@ -48,15 +48,17 @@ gulp.task('watch', ['html', 'css', 'js'], function() {
 
 gulp.task('default', ['html', 'css', 'js'], function() {
 	exec('cp -rf ./src/img ./dist/img');
-	gulp.watch(['./src/*.pug', './src/**/*.pug'], ['watch']);
-	gulp.watch('./src/css/*.less', ['watch']);
-	gulp.watch('./src/js/*.coffee', ['watch']);
 
-	browserSync.init({
-		server: {
-			baseDir: './dist'
-		}
-	});
+	if(gutil.env.env === 'development') {
+		gulp.watch(['./src/*.pug', './src/**/*.pug'], ['watch']);
+		gulp.watch('./src/css/*.less', ['watch']);
+		gulp.watch('./src/js/*.coffee', ['watch']);
 
-	gutil.log('Gulp is running in \''+gutil.env.env+'\' mode!');
+		browserSync.init({
+			server: {
+				baseDir: './dist'
+			}
+		});
+		gutil.log('Gulp is running!');
+	}
 });
