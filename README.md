@@ -6,7 +6,7 @@ bash
 ---
 Install global packages
 ```
-sudo npm install -g npx npm yarn
+npm install -g npx npm yarn
 ```
 
 ---
