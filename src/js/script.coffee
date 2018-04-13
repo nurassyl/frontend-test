@@ -1,4 +1,4 @@
-console.log '/* @echo ENV */'
+console.log 'App started in "/* @echo ENV */" mode.'
 $('.ellipse__button').on 'click', ->
 	alert 'Button of the header ellipse was clicked!'
 
