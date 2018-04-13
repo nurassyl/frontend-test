@@ -52,6 +52,7 @@ gulp.task('watch', ['html', 'css', 'js'], function() {
 
 gulp.task('default', ['html', 'css', 'js'], function() {
 	exec('cp -rf ./src/img ./dist/img');
+	exec('bash ./prebuild.sh');
 
 	if(gutil.env.env === 'development') {
 		gulp.watch(['./src/*.pug', './src/**/*.pug'], ['watch']);
