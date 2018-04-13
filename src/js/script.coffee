@@ -9,7 +9,12 @@ carousel = (element)->
 		element.owlCarousel({
 			nav: false,
 			loop: true,
-			items: 1
+			items: 1,
+			touchDrag: false,
+			mouseDrag: false,
+			autoplay: true,
+			autoplayTimeout: 7000,
+			autoplayHoverPause: true
 		})
 
 carousel $('.main__sections')
