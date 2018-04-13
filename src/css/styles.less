@@ -17,7 +17,7 @@ body {
 		border-radius: 100%;
 		margin-top: 144px;
 		margin-left: -34px;
-		h1 {
+		.ellipse__title {
 			font-size: 40px;
 			line-height: 47px;
 			font-family: 'Times New Roman', Times, serif;
@@ -26,7 +26,7 @@ body {
 			width: 484px;
 			height: auto;
 		}
-		p {
+		.ellipse__text {
 			font-size: 20px;
 			line-height: 28px;
 			font-family: verdana;
@@ -34,13 +34,13 @@ body {
 			width: 530px;
 			height: auto;
 		}
-		h1,
-		p {
+		.ellipse__title,
+		.ellipse__text {
 			color: white;
 			display: inline-block;
 		}
-		h1,
-		p,
+		.ellipse__title,
+		.ellipse__text,
 		.ellipse__button {
 			margin-left: 250px;
 		}
@@ -71,20 +71,20 @@ body {
 			width: @size;
 			height: @size;
 			margin-top: 70px;
-			h1 {
+			.ellipse__title {
 				font-size: 25px;
 				line-height: 30px;
 				margin-top: 100px;
 				width: 275px;
 			}
-			p {
+			.ellipse__text {
 				font-size: 14px;
 				line-height: 22px;
 				margin-top: 12px;
 				width: 370px;
 			}
-			h1,
-			p,
+			.ellipse__title,
+			.ellipse__text,
 			.ellipse__button {
 				margin-left: 130px;
 			}
@@ -108,20 +108,20 @@ body {
 			height: @size;
 			margin-top: -50px;
 			margin-left: -72px;
-			h1 {
+			.ellipse__title {
 				font-size: 27px;
 				line-height: 35px;
 				margin-top: 70px;
 				width: 180px;
 			}
-			p {
+			.ellipse__text {
 				font-size: 14px;
 				line-height: 17px;
 				margin-top: 7px;
 				width: 250px;
 			}
-			h1,
-			p,
+			.ellipse__title,
+			.ellipse__text,
 			.ellipse__button {
 				margin-left: 100px;
 			}
@@ -138,19 +138,17 @@ body {
 	max-width: 1200px;
 	margin: 0 auto;
 	padding-bottom: 100px;
-	margin-top: -100px;
-	position: relative;
-	z-index: 999;
 	.main__title {
 		float: left;
 		width: 300px;
 		color: @textColor;
-		h1 {
-			margin-top: 250px;
-			font-size: 40px;
-		}
+		margin-top: 250px;
+		font-size: 40px;
 	}
 	.main__sections {
+		margin-top: -100px;
+		position: relative;
+		z-index: 999;
 		overflow: hidden;
 		.sections__section {
 			@padding: 30px;
@@ -163,10 +161,10 @@ body {
 			border-radius: 5px;
 			box-shadow: 0 5px 30px rgba(0,0,0,0.2);
 			font-family: verdana;
-			h3 {
+			.section__title {
 				color: @textColor;
 			}
-			p {
+			.section__text {
 				margin-top: 40px;
 				color: #7E899E;
 			}
@@ -178,10 +176,8 @@ body {
 		padding-left: 20px;
 		.main__title {
 			width: 400px;
-			h1 {
-				margin-top: 250px;
-				font-size: 30px;
-			}
+			margin-top: 250px;
+			font-size: 30px;
 		}
 		.main__sections {
 			.sections__section {
@@ -190,10 +186,10 @@ body {
 				height: calc(230px - @padding);
 				padding: @padding;
 				margin: 15px;
-				h3 {
+				.section__title {
 					font-size: 18px;
 				}
-				p {
+				.section__text {
 					font-size: 14px;
 				}
 			}
@@ -202,39 +198,44 @@ body {
 }
 @media screen and (max-width: 1300px) {
 	.main {
-		padding-left: 70px;
+		padding-left: 150px;
 		.main__title {
 			width: 290px;
+			margin-top: 200px;
 		}
 	}
 }
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1250px) {
 	.main {
-		padding-left: 100px;
 		.main__title {
-			width: 220px;
-			h1 {
-				margin-top: 200px;
-				font-size: 25px;
-			}
-		}
-		.main__sections {
-			.sections__section {
-				width: 240px;
-				height: 220px;
-				h3 {
-					font-size: 17px;
-				}
-			}
+			width: 260px;
 		}
 	}
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
+	.main {
+		padding-left: 120px;
+		.main__title {
+			width: 240px;
+		}
+	}
+}
+@media screen and (max-width: 1150px) {
 	.main {
 		padding-left: 70px;
+		.main__title {
+			width: 200px;
+			font-size: 25px;
+		}
+	}
+}
+@media screen and (max-width: 950px) {
+	.main {
+		padding-left: 40px;
 		.main__sections {
 			.sections__section {
-				width: 230px;
+				width: 255px;
+				margin: 10px;
 			}
 		}
 	}
@@ -247,12 +248,11 @@ body {
 			float: none;
 			width: auto;
 			margin-left: 25px;
-			h1 {
-				margin-top: 15px;
-				font-size: 30px;
-			}
+			margin-top: 15px;
+			font-size: 30px;
 		}
 		.main__sections {
+			margin-top: 0;
 			.sections__section {
 				float: none;
 				width: auto;
@@ -260,10 +260,10 @@ body {
 				margin: 0;
 				margin-top: 25px;
 				height: 220px;
-				h3 {
+				.section__title {
 					font-size: 20px;
 				}
-				p {
+				.section__text {
 					font-size: 16px;
 				}
 			}
