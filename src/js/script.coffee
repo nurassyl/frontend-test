@@ -3,11 +3,11 @@ $('.ellipse__button').on 'click', ->
 	alert 'Button of the header ellipse was clicked!'
 
 carousel = (element)->
-	if $(window).width() <= 1000
+	if $(window).width() <= 767
 		element.addClass('owl-carousel')
 		element.addClass('owl-theme')
 		element.owlCarousel({
-			nav: true,
+			nav: false,
 			loop: true,
 			items: 1
 		})
