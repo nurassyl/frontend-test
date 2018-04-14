@@ -27,15 +27,21 @@ const
 	exec = require('child_process').exec,
 	preprocess = require('gulp-preprocess'),
 	replace = require('gulp-replace'),
-	replaceParam = ['?cache=true', `?cache=${Math.floor(new Date/1000)}`];
+	replaceParam = ['?cache=true', `?cache=${Math.floor(new Date/1000)}`],
+	sourcemaps = require('gulp-sourcemaps'),
+	gulpif = require('gulp-if'),
+	isDev = (gutil.env.env === 'development');
+	isProd = (gutil.env.env === 'production');
 
 gulp.task('css', function() {
 	return gulp
 		.src(config.src.css)
 		.pipe(plumber())
+		.pipe(gulpif(isDev, sourcemaps.init()))
 		.pipe(less())
+		.pipe(gulpif(isDev, sourcemaps.write()))
 		.pipe(autoprefixer())
-		.pipe(minifyCSS())
+		.pipe(gulpif(isProd, minifyCSS()))
 		.pipe(replace(...replaceParam))
 		.pipe(gulp.dest('./dist/css/'));
 });
@@ -43,13 +49,15 @@ gulp.task('js', function() {
 	return gulp
 		.src(config.src.js)
 		.pipe(plumber())
+		.pipe(gulpif(isDev, sourcemaps.init()))
 		.pipe(coffee())
+		.pipe(gulpif(isDev, sourcemaps.write()))
 		.pipe(preprocess({
 			context: {
 				ENV: gutil.env.env
 			}
 		}))
-		.pipe(uglify())
+		.pipe(gulpif(isProd, uglify()))
 		.pipe(replace(...replaceParam))
 		.pipe(gulp.dest('./dist/js/'));
 });
@@ -62,9 +70,11 @@ gulp.task('html', ['css', 'js', 'img'], function() {
 	return gulp
 		.src(config.src.html[0])
 		.pipe(plumber())
-		.pipe(pug())
-		.pipe(htmlmin({collapseWhitespace: true}))
+		.pipe(pug({
+			pretty: isDev
+		}))
 		.pipe(replace(...replaceParam))
+		.pipe(gulpif(isProd, htmlmin({collapseWhitespace: true})))
 		.pipe(gulp.dest('./dist/'));
 });
 gulp.task('watch', ['html'], function() {
@@ -73,7 +83,7 @@ gulp.task('watch', ['html'], function() {
 });
 gulp.task('default', ['html'], function() {
 	exec('bash ./prebuild.sh');
-	if(gutil.env.env === 'development') {
+	if(isDev) {
 		gulp.watch([...config.src.css, ...config.src.js, ...config.src.img, ...config.src.html], ['watch']);
 
 		browserSync.init({
