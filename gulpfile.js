@@ -1,3 +1,16 @@
+const config = {
+	src: {
+		css: ['./src/css/*.less'],
+		js: ['./src/js/*.coffee'],
+		img: ['./src/img/*.jpg'],
+		html: ['./src/*.pug', './src/**/*.pug']
+	},
+	dist: {
+		css: ['./dist/css/*.css'],
+		js: ['./dist/js/*.js'],
+		img: ['./dist/img/*.jpg']
+	}
+}
 const
 	gulp = require('gulp'),
 	pug = require('gulp-pug'),
@@ -7,33 +20,24 @@ const
 	htmlmin = require('gulp-htmlmin'),
 	uglify = require('gulp-uglify'),
 	autoprefixer = require('gulp-autoprefixer'),
-	concat = require('gulp-concat'),
-	sourcemaps = require('gulp-sourcemaps'),
 	browserSync = require('browser-sync').create(),
 	gutil = require('gulp-util'),
 	plumber = require('gulp-plumber'),
 	exec = require('child_process').exec,
 	preprocess = require('gulp-preprocess');
 
-gulp.task('html', function() {
-	return gulp.src('./src/*.pug')
-		.pipe(plumber())
-		.pipe(pug())
-		.pipe(htmlmin({collapseWhitespace: true}))
-		.pipe(gulp.dest('./dist/'));
-});
 gulp.task('css', function() {
-	return gulp.src('./src/css/*.less')
+	return gulp
+		.src(config.src.css)
 		.pipe(plumber())
-		.pipe(sourcemaps.init())
 		.pipe(less())
-		.pipe(sourcemaps.write())
 		.pipe(autoprefixer())
 		.pipe(minifyCSS())
 		.pipe(gulp.dest('./dist/css/'));
 });
 gulp.task('js', function() {
-	return gulp.src('./src/js/*.coffee')
+	return gulp
+		.src(config.src.js)
 		.pipe(plumber())
 		.pipe(coffee())
 		.pipe(preprocess({
@@ -44,20 +48,27 @@ gulp.task('js', function() {
 		.pipe(uglify())
 		.pipe(gulp.dest('./dist/js/'));
 });
-
-gulp.task('watch', ['html', 'css', 'js'], function() {
+gulp.task('img', function() {
+	return gulp
+		.src(config.src.img)
+		.pipe(gulp.dest('./dist/img'));
+});
+gulp.task('html', ['css', 'js', 'img'], function() {
+	return gulp
+		.src(config.src.html[0])
+		.pipe(plumber())
+		.pipe(pug())
+		.pipe(htmlmin({collapseWhitespace: true}))
+		.pipe(gulp.dest('./dist/'));
+});
+gulp.task('watch', ['html'], function() {
 	browserSync.reload();
 	gutil.log('Browser reloaded!');
-})
-
-gulp.task('default', ['html', 'css', 'js'], function() {
-	exec('cp -rf ./src/img ./dist/img');
+});
+gulp.task('default', ['html'], function() {
 	exec('bash ./prebuild.sh');
-
 	if(gutil.env.env === 'development') {
-		gulp.watch(['./src/*.pug', './src/**/*.pug'], ['watch']);
-		gulp.watch('./src/css/*.less', ['watch']);
-		gulp.watch('./src/js/*.coffee', ['watch']);
+		gulp.watch([...config.src.css, ...config.src.js, ...config.src.img, ...config.src.html], ['watch']);
 
 		browserSync.init({
 			server: {

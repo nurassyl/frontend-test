@@ -18,5 +18,6 @@ carousel = (element)->
 		})
 
 carousel $('.main__sections')
-$(window).resize ->
-	location.reload()
+if '/* @echo ENV */' == 'production'
+	$(window).resize ->
+		location.reload()
