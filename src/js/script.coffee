@@ -1,4 +1,5 @@
-console.log 'App started in "/* @echo ENV */" mode.'
+if '/* @echo ENV */' == 'development'
+	console.log 'App started in "/* @echo ENV */" mode.'
 $('.ellipse__button').on 'click', ->
 	alert 'Button of the header ellipse was clicked!'
 
@@ -16,12 +17,14 @@ carousel = (element)->
 		autoplayHoverPause: true,
 	})
 
-isMobile = window.matchMedia('(max-width: 768px)').matches
+isMobile = -> window.matchMedia('(max-width: 768px)').matches
+owl = null
 element = $('.main__sections')
-if isMobile
-	carousel element
+if isMobile()
+	owl = carousel element
 $(window).resize ->
-	if isMobile
-		carousel element
+	if isMobile()
+		owl = carousel element
 	else
-		element.trigger('destroy.owl.carousel').removeClass('owl-carousel owl-theme owl-loaded')
+		if owl != null
+			owl.trigger('destroy.owl.carousel').removeClass('owl-carousel owl-theme owl-loaded')

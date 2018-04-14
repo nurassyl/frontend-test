@@ -76,7 +76,7 @@ gulp.task('html', ['css', 'js', 'img'], function() {
 			pretty: isDev
 		}))
 		.pipe(replace(...replaceParam))
-		// .pipe(replace('{expires}', new Date((unixTimestamp+( ((60*60)*24)*30 ))*1000).toDateString()))
+		.pipe(replace('{{cache-control}}', (isProd ? 'public, max-age=2592000, immutable' : 'private, no-cache, no-store, must-revalidate')))
 		.pipe(gulpif(isProd, htmlmin({collapseWhitespace: true})))
 		.pipe(gulp.dest('./dist/'));
 });
