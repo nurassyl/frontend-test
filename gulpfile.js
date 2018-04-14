@@ -12,6 +12,7 @@ const config = {
 	}
 }
 const
+	md5 = require('md5'),
 	gulp = require('gulp'),
 	pug = require('gulp-pug'),
 	less = require('gulp-less'),
@@ -24,7 +25,9 @@ const
 	gutil = require('gulp-util'),
 	plumber = require('gulp-plumber'),
 	exec = require('child_process').exec,
-	preprocess = require('gulp-preprocess');
+	preprocess = require('gulp-preprocess'),
+	replace = require('gulp-replace'),
+	replaceParam = ['?cache=true', `?cache=${Math.floor(new Date/1000)}`];
 
 gulp.task('css', function() {
 	return gulp
@@ -33,6 +36,7 @@ gulp.task('css', function() {
 		.pipe(less())
 		.pipe(autoprefixer())
 		.pipe(minifyCSS())
+		.pipe(replace(...replaceParam))
 		.pipe(gulp.dest('./dist/css/'));
 });
 gulp.task('js', function() {
@@ -46,6 +50,7 @@ gulp.task('js', function() {
 			}
 		}))
 		.pipe(uglify())
+		.pipe(replace(...replaceParam))
 		.pipe(gulp.dest('./dist/js/'));
 });
 gulp.task('img', function() {
@@ -59,6 +64,7 @@ gulp.task('html', ['css', 'js', 'img'], function() {
 		.pipe(plumber())
 		.pipe(pug())
 		.pipe(htmlmin({collapseWhitespace: true}))
+		.pipe(replace(...replaceParam))
 		.pipe(gulp.dest('./dist/'));
 });
 gulp.task('watch', ['html'], function() {
