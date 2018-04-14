@@ -13,9 +13,6 @@ const
 server.use(express.static(basePath));
 server.get('*', function(req, res) {
 	const content = fs.readFileSync(basePath+'/index.html', 'utf-8');
-	res.set({
-		'Cache-Control': 'public, max-age=2592000, immutable'
-	});
 	res.write(content);
 	res.end();
 });
