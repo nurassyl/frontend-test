@@ -12,6 +12,7 @@ const config = {
 	}
 }
 const
+	moment = require('moment'),
 	md5 = require('md5'),
 	gulp = require('gulp'),
 	pug = require('gulp-pug'),
@@ -27,12 +28,13 @@ const
 	exec = require('child_process').exec,
 	preprocess = require('gulp-preprocess'),
 	replace = require('gulp-replace'),
-	replaceParam = ['?cache=true', `?cache=${Math.floor(new Date/1000)}`],
 	sourcemaps = require('gulp-sourcemaps'),
 	gulpif = require('gulp-if'),
-	isDev = (gutil.env.env === 'development');
-	isProd = (gutil.env.env === 'production');
 
+	isDev = (gutil.env.env === 'development'),
+	isProd = (gutil.env.env === 'production'),
+	momentObj = moment(),
+	replaceParam = ['?cache=true', `?cache=${momentObj.unix()}`];
 gulp.task('css', function() {
 	return gulp
 		.src(config.src.css)
@@ -74,6 +76,7 @@ gulp.task('html', ['css', 'js', 'img'], function() {
 			pretty: isDev
 		}))
 		.pipe(replace(...replaceParam))
+		// .pipe(replace('{expires}', new Date((unixTimestamp+( ((60*60)*24)*30 ))*1000).toDateString()))
 		.pipe(gulpif(isProd, htmlmin({collapseWhitespace: true})))
 		.pipe(gulp.dest('./dist/'));
 });

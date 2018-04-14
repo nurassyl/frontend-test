@@ -16,11 +16,12 @@ carousel = (element)->
 		autoplayHoverPause: true,
 	})
 
-element = carousel $('.main__sections')
-if $(window).width() < 768
+isMobile = window.matchMedia('(max-width: 768px)').matches
+element = $('.main__sections')
+if isMobile
 	carousel element
 $(window).resize ->
-	if window.matchMedia('(max-width: 768px)').matches
+	if isMobile
 		carousel element
 	else
 		element.trigger('destroy.owl.carousel').removeClass('owl-carousel owl-theme owl-loaded')
