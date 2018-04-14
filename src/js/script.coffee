@@ -9,10 +9,10 @@ carousel = (element)->
 		nav: false,
 		loop: true,
 		items: 1,
-		touchDrag: false,
+		touchDrag: true,
 		mouseDrag: false,
 		autoplay: true,
-		autoplayTimeout: 7000,
+		autoplayTimeout: 3000,
 		autoplayHoverPause: true
 	})
 
